@@ -33,7 +33,7 @@ jobs:
           pip3 install -r ${ARISTA_AVD_DIR}/arista/avd/requirements.txt
 
       - name: deploy toplogy with clab
-        run: echo $SUDO_ASKPASS | sudo -S clab deploy -t lab.yml
+        run: echo $SUDO_PASS | sudo -S clab deploy -t lab.yml
 
       - name: build
         run: ansible-playbook build.yml
@@ -48,4 +48,4 @@ jobs:
 
       - name: destroy lab
         if: always()
-        run: echo $SUDO_ASPASS | sudo -S clab destroy -t lab.yml --clean-up
+        run: echo $SUDO_PASS | sudo -S clab destroy -t lab.yml --clean-up
