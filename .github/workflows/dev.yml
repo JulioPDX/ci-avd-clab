@@ -36,11 +36,11 @@ jobs:
         run: echo $SUDO_PASS | sudo -S clab deploy -t lab.yml --reconfigure
 
       - name: build with AVD
-        run: ansible-playbook build.yml
+        run: ansible-playbook playbooks/build.yml
 
       - name: deploy to nodes
         run: |
-          ansible-playbook deploy-net.yml
+          ansible-playbook playbooks/deploy-net.yml
           sleep 10
 
       - name: install ANTA and run tests
@@ -49,8 +49,8 @@ jobs:
           anta \
               --username admin \
               --password $ANTA_PASSWORD \
-              -i anta-inv.yml \
-              nrfu --catalog anta-test.yml text
+              -i anta/anta-inv.yml \
+              nrfu --catalog anta/anta-test.yml text
 
       - name: destroy lab
         if: always()

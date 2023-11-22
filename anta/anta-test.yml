@@ -1,4 +1,3 @@
-# Load anta.tests.software
 anta.tests.software:
   - VerifyEOSVersion: # Verifies the device is running one of the allowed EOS version.
       versions: # List of allowed EOS versions.
