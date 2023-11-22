@@ -51,7 +51,7 @@ jobs:
           anta \
               --username admin \
               --password $ANTA_PASSWORD \
-              -i inventory.yml \
+              -i anta-inv.yml \
               nrfu --catalog anta-test.yml table
 
       - name: destroy lab
