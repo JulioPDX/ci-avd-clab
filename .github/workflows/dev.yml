@@ -25,12 +25,12 @@ jobs:
       - name: setup Python
         uses: actions/setup-python@v3
 
-      - name: install requirements
-        run: |
-          pip3 install "ansible-core<2.15.0"
-          ansible-galaxy collection install arista.avd --force
-          export ARISTA_AVD_DIR=$(ansible-galaxy collection list arista.avd --format yaml | head -1 | cut -d: -f1)
-          pip3 install -r ${ARISTA_AVD_DIR}/arista/avd/requirements.txt
+      # - name: install requirements
+      #   run: |
+      #     pip3 install "ansible-core<2.15.0"
+      #     ansible-galaxy collection install arista.avd --force
+      #     export ARISTA_AVD_DIR=$(ansible-galaxy collection list arista.avd --format yaml | head -1 | cut -d: -f1)
+      #     pip3 install -r ${ARISTA_AVD_DIR}/arista/avd/requirements.txt
 
       - name: deploy toplogy with clab
         run: echo $SUDO_PASS | sudo -S clab deploy -t lab.yml --reconfigure
