@@ -33,7 +33,7 @@ jobs:
           pip3 install -r ${ARISTA_AVD_DIR}/arista/avd/requirements.txt
 
       - name: deploy toplogy with clab
-        run: echo $SUDO_PASS | sudo -S clab deploy -t lab.yml
+        run: echo $SUDO_PASS | sudo -S clab deploy -t lab.yml --reconfigure
 
       - name: build
         run: ansible-playbook build.yml
