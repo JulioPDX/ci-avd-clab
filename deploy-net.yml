@@ -1,0 +1,15 @@
+---
+- name: Build EOS config
+  hosts: ATD_FABRIC
+  connection: local
+  gather_facts: false
+  collections:
+    - arista.avd
+  vars:
+    fabric_dir_name: "{{fabric_name}}"
+    execute_tasks: false
+  tasks:
+
+    - name: Generate intended variables
+      import_role:
+        name: eos_config_deploy_eapi

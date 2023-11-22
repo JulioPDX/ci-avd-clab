@@ -1,0 +1,74 @@
+---
+fabric_name: ATD_FABRIC
+
+# Enable vlan aware bundles
+evpn_vlan_aware_bundles: true
+
+# underlay_routing_protocol: OSPF
+
+bgp_graceful_restart:
+  enabled: true
+  restart_time: 300
+
+bgp_distance:
+  external_routes: 20
+  internal_routes: 200
+  local_routes: 200
+
+# Spine Switches
+spine:
+  defaults:
+    platform: cEOS
+    bgp_as: 65001
+    loopback_ipv4_pool: 192.0.255.0/24
+    loopback_ipv6_pool: 2001:db8:c01d:c01a::/64
+  nodes:
+    - name: spine1
+      id: 1
+      mgmt_ip: 172.100.100.11/24
+
+# Leaf switch groups
+# A maximum of two nodes can form a leaf group
+# When two nodes are in a leaf group this will automatically form mlag pair
+
+l3leaf:
+  defaults:
+    platform: cEOS
+    loopback_ipv4_pool: 192.0.255.0/24
+    loopback_ipv6_pool: 2001:db8:c01d:c01a::/64
+    loopback_ipv4_offset: 1
+    vtep_loopback_ipv4_pool: 192.0.254.0/24
+    uplink_interfaces: [Ethernet1]
+    uplink_switches: [spine1]
+    uplink_ipv4_pool: 172.30.255.0/24
+    virtual_router_mac_address: 00:1c:73:00:dc:01
+    spanning_tree_mode: mstp
+    spanning_tree_priority: 16384
+    filter:
+      # only_vlans_in_use: true
+  node_groups:
+    - group: pod1
+      bgp_as: 65101
+      nodes:
+        - name: leaf1
+          id: 1
+          mgmt_ip: 172.100.100.13/24
+          uplink_switch_interfaces: [Ethernet1]
+    - group: pod2
+      bgp_as: 65102
+      nodes:
+        - name: leaf2
+          id: 2
+          mgmt_ip: 172.100.100.14/24
+          uplink_switch_interfaces: [Ethernet2]
+
+#### Override for vEOS Lab Caveats ####
+
+# Update p2p mtu 9000 -> 1500
+p2p_uplinks_mtu: 1500
+
+# Adjust default bfd values
+bfd_multihop:
+  interval: 1200
+  min_rx: 1200
+  multiplier: 3

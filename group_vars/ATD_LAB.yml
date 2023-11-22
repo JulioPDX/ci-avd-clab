@@ -1,0 +1,20 @@
+---
+# OOB Management network default gateway
+mgmt_gateway: 172.100.100.1
+mgmt_interface: Management0
+mgmt_interface_vrf: default
+
+name_servers:
+  - 192.168.2.1
+  - 8.8.8.8
+
+dns_domain: atd.lab
+
+local_users:
+  - name: admin
+    privilege: 15
+    role: network-admin
+    sha512_password: "$6$GSDvwzmqiRb8Su2X$QIPBWzmhfnnzo4QIoKD7VRb3TvLL6687X.6/e4M.5Dw9iviTTDR.ZKaz7Q3Parul5i8rTgZ/.4ri/ny4El5Jx0"
+management_eapi:
+  enable_http: true
+  enable_https: true

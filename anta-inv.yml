@@ -1,0 +1,11 @@
+anta_inventory:
+  hosts:
+  - host: 172.100.100.11
+    name: spine1
+    tags: ['fabric', 'spine']
+  - host: 172.100.100.13
+    name: leaf1
+    tags: ['fabric', 'leaf', 'pod1']
+  - host: 172.100.100.14
+    name: leaf2
+    tags: ['fabric', 'leaf', 'pod2']
