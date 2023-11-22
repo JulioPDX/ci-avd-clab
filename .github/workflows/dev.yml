@@ -9,8 +9,8 @@ jobs:
   deploy-dev:
     env:
       ANTA_PASSWORD: ${{ secrets.ANTA_PASSWORD }}
-      ANTA_USERNAME: ${{ env.USERNAME }}
-      ANTA_INVENTORY: ${{ env.INVENTORY }}
+      ANTA_USERNAME: ${{ vars.USERNAME }}
+      ANTA_INVENTORY: ${{ vars.INVENTORY }}
 
     timeout-minutes: 15
     runs-on: avd-ci
