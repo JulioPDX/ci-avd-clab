@@ -9,8 +9,6 @@ jobs:
   deploy-dev:
     env:
       ANTA_PASSWORD: ${{ secrets.ANTA_PASSWORD }}
-      ANTA_USERNAME: ${{ vars.USERNAME }}
-      ANTA_INVENTORY: ${{ vars.INVENTORY }}
       SUDO_PASS: ${{ secrets.SUDO_PASS }}
 
     timeout-minutes: 15
@@ -37,7 +35,7 @@ jobs:
       - name: deploy topology with clab
         run: echo $SUDO_PASS | sudo -S clab deploy -t lab.yml --reconfigure
 
-      - name: build
+      - name: build with AVD
         run: ansible-playbook build.yml
 
       - name: deploy to nodes
@@ -52,7 +50,7 @@ jobs:
               --username admin \
               --password $ANTA_PASSWORD \
               -i anta-inv.yml \
-              nrfu --catalog anta-test.yml table
+              nrfu --catalog anta-test.yml text
 
       - name: destroy lab
         if: always()
