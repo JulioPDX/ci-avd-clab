@@ -41,7 +41,9 @@ jobs:
         run: ansible-playbook build.yml
 
       - name: deploy to nodes
-        run: ansible-playbook deploy-net.yml
+        run: |
+          ansible-playbook deploy-net.yml
+          sleep 10
 
       - name: install ANTA and run tests
         run: |
@@ -49,7 +51,7 @@ jobs:
           anta \
               --username admin \
               --password $ANTA_PASSWORD \
-              --inventory anta-inv.yml \
+              -i inventory.yml \
               nrfu --catalog anta-test.yml table
 
       - name: destroy lab
