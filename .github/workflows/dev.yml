@@ -47,10 +47,6 @@ jobs:
         run: |
           pip3 install anta
           anta nrfu --catalog anta-test.yml table
-        env:
-          ANTA_PASSWORD: ${{ secrets.ANTA_PASSWORD }}
-          ANTA_USERNAME: ${{ vars.USERNAME }}
-          ANTA_INVENTORY: ${{ vars.INVENTORY }}
 
       - name: destroy lab
         if: always()

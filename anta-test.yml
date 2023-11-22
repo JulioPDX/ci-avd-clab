@@ -1,0 +1,19 @@
+# Load anta.tests.software
+anta.tests.software:
+  - VerifyEOSVersion: # Verifies the device is running one of the allowed EOS version.
+      versions: # List of allowed EOS versions.
+        - 4.30.2F-33092737.4302F (engineering build)
+
+anta.tests.routing.generic:
+  - VerifyRoutingProtocolModel:
+      model: "multi-agent"
+
+anta.tests.routing.bgp:
+  - VerifyBGPPeersHealth:
+      address_families:
+        - afi: ipv4
+          safi: unicast
+
+anta.tests.vxlan:
+  - VerifyVxlan1Interface:
+  - VerifyVxlanConfigSanity:
