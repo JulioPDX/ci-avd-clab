@@ -34,7 +34,7 @@ jobs:
 
       - name: deploy toplogy with clab
         run: |
-          echo $SUDO_ASKPASS | sudo -S ni
+          echo $SUDO_ASKPASS | sudo -S
           sudo clab deploy -t lab.yml
 
       - name: build
