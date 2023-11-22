@@ -46,7 +46,11 @@ jobs:
       - name: install ANTA and run tests
         run: |
           pip3 install anta
-          anta nrfu --catalog anta-test.yml table
+          anta \
+              --username admin \
+              --password $ANTA_PASSWORD \
+              --inventory anta-inv.yml \
+              nrfu --catalog anta-test.yml table
 
       - name: destroy lab
         if: always()
