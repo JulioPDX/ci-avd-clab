@@ -34,6 +34,7 @@ jobs:
 
       - name: deploy toplogy with clab
         run: |
+          sudo -A hi
           sudo clab deploy -t lab.yml
 
       - name: build
