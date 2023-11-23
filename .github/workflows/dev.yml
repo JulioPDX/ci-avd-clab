@@ -10,7 +10,24 @@ on:
       - main
 
 jobs:
-  deploy-dev:
+  run-linters:
+    timeout-minutes: 15
+    runs-on: avd-ci
+    steps:
+
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: run yamllint
+        uses: karancode/yamllint-github-action@v2.1.1
+
+      - name: run ansible-lint
+        uses: ansible/ansible-lint@v6.22.0
+
+      - name: run markdownlint-cli2
+        uses: DavidAnson/markdownlint-cli2-action@v13.0.0
+
+  defv-build-deploy-test:
     env:
       ANTA_PASSWORD: ${{ secrets.ANTA_PASSWORD }}
       SUDO_PASS: ${{ secrets.SUDO_PASS }}
@@ -18,11 +35,6 @@ jobs:
     timeout-minutes: 15
     runs-on: avd-ci
     steps:
-      - name: hi
-        run: echo "Hello World!"
-
-      - name: checkout
-        uses: actions/checkout@v4
 
       - name: setup Python
         uses: actions/setup-python@v4
@@ -32,22 +44,13 @@ jobs:
       - name: install requirements
         run: ./setup.sh
 
-      - name: run markdownlint-cli2
-        uses: DavidAnson/markdownlint-cli2-action@v13.0.0
-
-      - name: run ansible-lint
-        uses: ansible/ansible-lint@v6.22.0
-
-      - name: run yamllint
-        uses: karancode/yamllint-github-action@v2.1.1
-
-      - name: deploy topology with clab
-        run: echo $SUDO_PASS | sudo -S clab deploy -t lab.yml --reconfigure
-
       - name: check requirements
         run: |
           pip list
           ansible-galaxy collection list
+
+      - name: deploy topology with clab
+        run: echo $SUDO_PASS | sudo -S clab deploy -t lab.yml --reconfigure
 
       - name: build with AVD
         run: ansible-playbook playbooks/build.yml
