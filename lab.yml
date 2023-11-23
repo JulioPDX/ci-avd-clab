@@ -1,3 +1,4 @@
+---
 name: ci-avd
 prefix: ""
 
@@ -20,6 +21,5 @@ topology:
       kind: ceos
       mgmt-ipv4: 172.100.100.14
   links:
-    # spine1
     - endpoints: ["spine1:eth1", "leaf1:eth1"]
     - endpoints: ["spine1:eth2", "leaf2:eth1"]

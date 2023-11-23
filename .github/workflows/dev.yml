@@ -1,12 +1,33 @@
-name: Deploy updates
+---
+name: Network CI
 
 on:
+  pull_request:
+    branches:
+      - main
   push:
     branches:
       - main
 
 jobs:
-  deploy-dev:
+  run-linters:
+    timeout-minutes: 15
+    runs-on: avd-ci
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: run yamllint
+        uses: karancode/yamllint-github-action@v2.1.1
+
+      - name: run ansible-lint
+        uses: ansible/ansible-lint@v6.22.0
+
+      - name: run markdownlint-cli2
+        uses: DavidAnson/markdownlint-cli2-action@v13.0.0
+
+  dev-build-deploy-test:
+    needs: run-linters
     env:
       ANTA_PASSWORD: ${{ secrets.ANTA_PASSWORD }}
       SUDO_PASS: ${{ secrets.SUDO_PASS }}
@@ -14,44 +35,51 @@ jobs:
     timeout-minutes: 15
     runs-on: avd-ci
     steps:
-      - name: hi
-        run: echo "Hello World!"
-
-      - name: checkout
-        uses: actions/checkout@v4
-
       - name: setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9'
+          python-version: "3.9"
 
       - name: install requirements
-        run: |
-          pip3 install "ansible-core<2.16.0" -U
-          ansible-galaxy collection install arista.avd --force
-          export ARISTA_AVD_DIR=$(ansible-galaxy collection list arista.avd --format yaml | head -1 | cut -d: -f1)
-          pip3 install -r ${ARISTA_AVD_DIR}/arista/avd/requirements.txt
+        run: ./setup.sh
 
-      - name: deploy topology with clab
+      - name: create topology with containerlab
         run: echo $SUDO_PASS | sudo -S clab deploy -t lab.yml --reconfigure
 
       - name: build with AVD
         run: ansible-playbook playbooks/build.yml
 
-      - name: deploy to nodes
+      - name: deploy configuration to nodes
         run: |
           ansible-playbook playbooks/deploy-net.yml
           sleep 10
 
-      - name: install ANTA and run tests
+      - name: run ANTA tests
         run: |
-          pip3 install anta
           anta \
               --username admin \
               --password $ANTA_PASSWORD \
               -i anta/anta-inv.yml \
+              --log-file artifacts/anta.log \
               nrfu --catalog anta/anta-test.yml text
+
+      - name: validate configuration on nodes
+        run: |
+          ansible-playbook playbooks/validate-net.yml
+          sleep 10
+
+      - name: upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: avd-artifacts
+          path: artifacts/**
+          retention-days: 90
 
       - name: destroy lab
         if: always()
         run: echo $SUDO_PASS | sudo -S clab destroy -t lab.yml -c
+
+      - name: cleanup self hosted runner
+        if: always()
+        uses: TooMuch4U/actions-clean@v2.1

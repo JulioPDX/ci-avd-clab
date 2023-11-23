@@ -3,13 +3,14 @@
   hosts: ATD_FABRIC
   connection: local
   gather_facts: false
-  collections:
-    - arista.avd
-  vars:
-    fabric_dir_name: "{{fabric_name}}"
-    execute_tasks: false
-  tasks:
 
+  vars:
+    fabric_dir_name: "{{ fabric_name }}"
+    execute_tasks: false
+    documentation_dir_name: "artifacts/documentation"
+    output_dir_name: "artifacts/intended"
+
+  tasks:
     - name: Generate intended variables
-      import_role:
-        name: eos_config_deploy_eapi
+      ansible.builtin.import_role:
+        name: arista.avd.eos_config_deploy_eapi

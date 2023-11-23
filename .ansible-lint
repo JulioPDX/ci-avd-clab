@@ -1,0 +1,44 @@
+---
+profile: production  # min, basic, moderate, safety, shared, production
+
+# Allows dumping of results in SARIF format
+# sarif_file: result.sarif
+
+exclude_paths:
+  - .cache/
+  - test/fixtures/formatting-before/
+  - test/fixtures/formatting-prettier/
+  - artifacts/
+  - .yamllint
+  - .ansible-lint
+# parseable: true
+# quiet: true
+# strict: true
+# verbosity: 1
+
+use_default_rules: true
+
+# Ansible-lint does not fail on warnings from the rules or tags listed below
+warn_list:
+  # - skip_this_tag
+  - experimental  # experimental is included in the implicit list
+  - var-naming[no-role-prefix]
+  - yaml[comments-indentation]
+
+# Some rules can transform files to fix (or make it easier to fix) identified
+# errors. `ansible-lint --fix` will reformat YAML files and run these transforms.
+# By default it will run all transforms (effectively `write_list: ["all"]`).
+# You can disable running transforms by setting `write_list: ["none"]`.
+# Or only enable a subset of rule transforms by listing rules/tags here.
+# write_list:
+#   - all
+
+# Offline mode disables installation of requirements.yml and schema refreshing
+offline: false
+
+# List of additional kind:pattern to be added at the top of the default
+# match list, first match determines the file kind.
+kinds:
+  - playbook: "**/playbooks/*.{yml,yaml}"
+  - vars: "**/group_vars/*.yml"
+  - yaml: "**/*.yaml-too"

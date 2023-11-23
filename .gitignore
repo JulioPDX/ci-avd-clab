@@ -160,3 +160,18 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+
+# Artifacts
+artifacts/documentation/*
+!artifacts/documentation/.gitkeep
+artifacts/intended/configs/*
+!artifacts/intended/configs/.gitkeep
+artifacts/intended/structured_configs/*
+!artifacts/intended/structured_configs/.gitkeep
+artifacts/reports/*
+!artifacts/reports/.gitkeep
+artifacts/atna_reports/*
+!artifacts/atna_reports/.gitkeep
+
+# VS Code
+.vscode

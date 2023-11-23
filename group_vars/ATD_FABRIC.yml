@@ -44,8 +44,8 @@ l3leaf:
     virtual_router_mac_address: 00:1c:73:00:dc:01
     spanning_tree_mode: mstp
     spanning_tree_priority: 16384
-    filter:
-      # only_vlans_in_use: true
+    # filter:
+    #   only_vlans_in_use: true
   node_groups:
     - group: pod1
       bgp_as: 65101
