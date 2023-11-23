@@ -1,0 +1,6 @@
+---
+collections:
+  - name: arista.avd
+    version: ">=4.4.0,<4.5.0"
+  # needed for stdout yaml
+  - name: community.general
