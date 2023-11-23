@@ -27,7 +27,8 @@ jobs:
       - name: run markdownlint-cli2
         uses: DavidAnson/markdownlint-cli2-action@v13.0.0
 
-  defv-build-deploy-test:
+  dev-build-deploy-test:
+    needs: run-linters
     env:
       ANTA_PASSWORD: ${{ secrets.ANTA_PASSWORD }}
       SUDO_PASS: ${{ secrets.SUDO_PASS }}
