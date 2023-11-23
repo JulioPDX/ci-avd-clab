@@ -1,3 +1,4 @@
+---
 name: Deploy updates
 
 on:
@@ -23,7 +24,7 @@ jobs:
       - name: setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9'
+          python-version: "3.9"
 
       - name: install requirements
         run: ./setup.sh
