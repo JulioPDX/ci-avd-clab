@@ -168,6 +168,10 @@ artifacts/intended/configs/*
 !artifacts/intended/configs/.gitkeep
 artifacts/intended/structured_configs/*
 !artifacts/intended/structured_configs/.gitkeep
+artifacts/reports/*
+!artifacts/reports/.gitkeep
+artifacts/atna_reports/*
+!artifacts/atna_reports/.gitkeep
 
 # VS Code
 .vscode
