@@ -63,10 +63,10 @@ jobs:
               --log-file artifacts/anta.log \
               nrfu --catalog anta/anta-test.yml text
 
-      #- name: validate configuration on nodes
-      #  run: |
-      #    ansible-playbook playbooks/validate-net.yml
-      #    sleep 10
+      - name: validate configuration on nodes
+        run: |
+          ansible-playbook playbooks/validate-net.yml
+          sleep 10
 
       - name: upload artifacts
         if: always()
