@@ -72,10 +72,11 @@ jobs:
 
       - name: upload artifacts
         if: always()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: avd-artifacts
-          path: ./artifacts/**
+          path: artifacts/**
+          retention-days: 90
 
       - name: destroy lab
         if: always()
