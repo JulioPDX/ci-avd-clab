@@ -12,7 +12,6 @@
 
   tasks:
     - name: Validate EOS state
-      delegate_to: localhost
       ansible.builtin.import_role:
         name: arista.avd.eos_validate_state
       vars:
