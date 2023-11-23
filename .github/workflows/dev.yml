@@ -26,11 +26,7 @@ jobs:
           python-version: '3.9'
 
       - name: install requirements
-        run: |
-          pip3 install "ansible-core<2.16.0" -U
-          ansible-galaxy collection install arista.avd --force
-          export ARISTA_AVD_DIR=$(ansible-galaxy collection list arista.avd --format yaml | head -1 | cut -d: -f1)
-          pip3 install -r ${ARISTA_AVD_DIR}/arista/avd/requirements.txt
+        run: ./setup.sh
 
       - name: deploy topology with clab
         run: echo $SUDO_PASS | sudo -S clab deploy -t lab.yml --reconfigure
