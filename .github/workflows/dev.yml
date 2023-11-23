@@ -80,3 +80,6 @@ jobs:
       - name: destroy lab
         if: always()
         run: echo $SUDO_PASS | sudo -S clab destroy -t lab.yml -c
+
+      - name: Self Hosted Runner Post Job Cleanup Action
+        uses: TooMuch4U/actions-clean@v2.1
