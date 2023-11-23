@@ -44,6 +44,11 @@ jobs:
       - name: deploy topology with clab
         run: echo $SUDO_PASS | sudo -S clab deploy -t lab.yml --reconfigure
 
+      - name: check requirements
+        run: |
+          pip list
+          ansible-galaxy collection list
+
       - name: build with AVD
         run: ansible-playbook playbooks/build.yml
 
