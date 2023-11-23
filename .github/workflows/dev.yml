@@ -29,6 +29,15 @@ jobs:
       - name: install requirements
         run: ./setup.sh
 
+      - name: run markdownlint-cli2
+        uses: DavidAnson/markdownlint-cli2-action@v13.0.0
+    
+      - name: run ansible-lint
+        uses: ansible/ansible-lint@v6.22.0
+
+      - name: run yamllint
+        uses: karancode/yamllint-github-action@v2.1.1
+
       - name: deploy topology with clab
         run: echo $SUDO_PASS | sudo -S clab deploy -t lab.yml --reconfigure
 
@@ -40,14 +49,21 @@ jobs:
           ansible-playbook playbooks/deploy-net.yml
           sleep 10
 
-      - name: install ANTA and run tests
+      - name: run ANTA tests
         run: |
-          pip3 install anta
           anta \
               --username admin \
               --password $ANTA_PASSWORD \
               -i anta/anta-inv.yml \
+              --log-file artifacts/anta.log \
               nrfu --catalog anta/anta-test.yml text
+
+      - name: upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: avd-artifacts
+          path: ./artifacts/**
 
       - name: destroy lab
         if: always()
