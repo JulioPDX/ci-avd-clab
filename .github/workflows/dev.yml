@@ -43,11 +43,11 @@ jobs:
       - name: install requirements
         run: ./setup.sh
 
-      - name: build with AVD
-        run: ansible-playbook playbooks/build.yml
-
       - name: create topology with containerlab
         run: echo $SUDO_PASS | sudo -S clab deploy -t lab.yml --reconfigure
+
+      - name: build with AVD
+        run: ansible-playbook playbooks/build.yml
 
       - name: deploy configuration to nodes
         run: |
@@ -76,4 +76,5 @@ jobs:
         run: echo $SUDO_PASS | sudo -S clab destroy -t lab.yml -c
 
       - name: cleanup self hosted runner
+        if: always()
         uses: TooMuch4U/actions-clean@v2.1
