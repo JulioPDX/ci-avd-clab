@@ -35,7 +35,8 @@
 				"oderwat.indent-rainbow",
 				"redhat.ansible",
 				"redhat.vscode-yaml",
-				"searKing.preview-vscode"
+				"searKing.preview-vscode",
+				"shardulm94.trailing-spaces"
 			]
 		}
 	}

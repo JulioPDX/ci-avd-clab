@@ -34,7 +34,7 @@ jobs:
 
       - name: run markdownlint-cli2
         uses: DavidAnson/markdownlint-cli2-action@v13.0.0
-    
+
       - name: run ansible-lint
         uses: ansible/ansible-lint@v6.22.0
 
