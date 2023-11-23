@@ -14,7 +14,6 @@ jobs:
     timeout-minutes: 15
     runs-on: avd-ci
     steps:
-
       - name: checkout
         uses: actions/checkout@v4
 
@@ -36,7 +35,6 @@ jobs:
     timeout-minutes: 15
     runs-on: avd-ci
     steps:
-
       - name: setup Python
         uses: actions/setup-python@v4
         with:
@@ -45,18 +43,13 @@ jobs:
       - name: install requirements
         run: ./setup.sh
 
-      - name: check requirements
-        run: |
-          pip list
-          ansible-galaxy collection list
-
-      - name: deploy topology with clab
-        run: echo $SUDO_PASS | sudo -S clab deploy -t lab.yml --reconfigure
-
       - name: build with AVD
         run: ansible-playbook playbooks/build.yml
 
-      - name: deploy to nodes
+      - name: create topology with containerlab
+        run: echo $SUDO_PASS | sudo -S clab deploy -t lab.yml --reconfigure
+
+      - name: deploy configuration to nodes
         run: |
           ansible-playbook playbooks/deploy-net.yml
           sleep 10
@@ -82,5 +75,5 @@ jobs:
         if: always()
         run: echo $SUDO_PASS | sudo -S clab destroy -t lab.yml -c
 
-      - name: Self Hosted Runner Post Job Cleanup Action
+      - name: cleanup self hosted runner
         uses: TooMuch4U/actions-clean@v2.1
