@@ -5,21 +5,32 @@ import subprocess
 
 
 @task()
-def devcontainer_setup(ctx):
+def setup_devcontainer(ctx):
     """
     Set up the development container environment.
     This task runs other tasks to install various requirements.
     """
+
+    # Install Base Setup
+    base_setup(ctx)
+
+    # Install ContainerLab
+    install_clab(ctx)
+
+
+@task()
+def setup_base(ctx):
+    """
+    Set up the development container environment.
+    This task runs other tasks to install various requirements.
+    """
+
     # Install Python project and development requirements
     install_python_reqs(ctx)
     install_python_reqs_dev(ctx)
 
     # Install Ansible collection requirements
     install_ansible_collections(ctx)
-
-    # Install ContainerLab
-    install_clab(ctx)
-
 
 @task()
 def install_python_reqs(ctx):
@@ -106,7 +117,7 @@ def download_eos(ctx):
 
 
 @task()
-def clear_ansible_log(ctx):
+def ansible_clear_log(ctx):
     """
     Clear ansible.log file.
     """

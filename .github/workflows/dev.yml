@@ -48,7 +48,7 @@ jobs:
           python-version: "3.9"
 
       - name: install requirements
-        run: ./setup.sh
+        run: pip install invoke && invoke setup-base
 
       - name: create topology with containerlab
         run: echo $SUDO_PASS | sudo -S clab deploy -t lab.yml --reconfigure
