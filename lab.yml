@@ -9,7 +9,7 @@ mgmt:
 topology:
   kinds:
     ceos:
-      image: ceos:4.30.2F
+      image: ${CEOS_IMAGE_NAME:=arista/ceos}:${CEOS_VERSION:=4.30.2F}
   nodes:
     spine1:
       kind: ceos

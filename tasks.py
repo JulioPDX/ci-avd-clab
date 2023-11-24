@@ -4,6 +4,14 @@ from invoke import task
 import subprocess
 
 
+ANSIBLE_LOG_FILE = "ansible.log"
+CEOS_VERSION = "4.30.2F"
+CLAB_FILE = "lab.yml"
+REQUIREMENTS_FILE_ANSIBLE = "requirements.yml"
+REQUIREMENTS_FILE_PYTHON = "requirments.txt"
+REQUIREMENTS_FILE_PYTHON_DEV = "requirments-dev.txt"
+
+
 @task()
 def setup_devcontainer(ctx):
     """
@@ -12,7 +20,7 @@ def setup_devcontainer(ctx):
     """
 
     # Install Base Setup
-    base_setup(ctx)
+    setup_base(ctx)
 
     # Install ContainerLab
     install_clab(ctx)
@@ -32,6 +40,7 @@ def setup_base(ctx):
     # Install Ansible collection requirements
     install_ansible_collections(ctx)
 
+
 @task()
 def install_python_reqs(ctx):
     """
@@ -39,7 +48,7 @@ def install_python_reqs(ctx):
     """
     print("Installing Project Python Requirements")
     ctx.run("pip install --upgrade pip")
-    ctx.run("pip install -r requirements.txt")
+    ctx.run(f"pip install -r {REQUIREMENTS_FILE_PYTHON}")
 
 
 @task()
@@ -48,7 +57,7 @@ def install_python_reqs_dev(ctx):
     Install development Python requirements.
     """
     print("Installing Development Python Requirements")
-    ctx.run("grep -v 'invoke' requirements-dev.txt | xargs pip install")
+    ctx.run(f"grep -v 'invoke' {REQUIREMENTS_FILE_PYTHON_DEV} | xargs pip install")
 
 
 @task()
@@ -57,10 +66,11 @@ def install_ansible_collections(ctx):
     Install Ansible collection requirements, including Arista AVD collection.
     """
     print("Installing Project Ansible Collection Requirements")
-    ctx.run("ansible-galaxy collection install -r requirements.yml --force-with-deps")
+    ctx.run(
+        f"ansible-galaxy collection install -r {REQUIREMENTS_FILE_ANSIBLE}--force-with-deps"
+    )
 
     print("Installing Project Arista AVD Collection Python Requirements")
-
     # Run the command and capture its output
     result = subprocess.run(
         "ansible-galaxy collection list arista.avd --format yaml | head -1 | cut -d: -f1",
@@ -95,7 +105,7 @@ def clab_deploy(ctx):
     Create ContainerLab Topology.
     """
     print("Deploying ContainerLab Topology")
-    ctx.run("sudo -S clab deploy -t lab.yml --reconfigure")
+    ctx.run(f"sudo -S clab deploy -t {CLAB_FILE} --reconfigure")
 
 
 @task()
@@ -104,7 +114,7 @@ def clab_destroy(ctx):
     Destroy ContainerLab Topology.
     """
     print("Destroying ContainerLab Topology")
-    ctx.run("sudo -S clab destroy -t lab.yml")
+    ctx.run(f"sudo -S clab destroy -t {CLAB_FILE}")
 
 
 @task()
@@ -113,7 +123,7 @@ def download_eos(ctx):
     Download EOS.
     """
     print("Downloading EOS image")
-    ctx.run("ardl get eos --version 4.30.2F --image-type cEOS --import-docker")
+    ctx.run(f"ardl get eos --version {CEOS_VERSION} --image-type cEOS --import-docker")
 
 
 @task()
@@ -122,4 +132,4 @@ def ansible_clear_log(ctx):
     Clear ansible.log file.
     """
     print("Clearing ansible log file")
-    open('ansible.log', 'w', encoding="utf-8").close()
+    open(ANSIBLE_LOG_FILE, "w", encoding="utf-8").close()

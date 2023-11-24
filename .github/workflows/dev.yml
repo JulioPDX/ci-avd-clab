@@ -35,6 +35,8 @@ jobs:
     env:
       ANTA_PASSWORD: ${{ secrets.ANTA_PASSWORD }}
       SUDO_PASS: ${{ secrets.SUDO_PASS }}
+      CEOS_IMAGE_NAME: ceos
+      CEOS_VERSION: 4.30.2F
 
     timeout-minutes: 15
     runs-on: avd-ci
