@@ -12,7 +12,7 @@ on:
 jobs:
   run-linters:
     timeout-minutes: 15
-    runs-on: avd-ci
+    runs-on: ubuntu-latest
     steps:
       - name: checkout
         uses: actions/checkout@v4
@@ -26,6 +26,10 @@ jobs:
       - name: run markdownlint-cli2
         uses: DavidAnson/markdownlint-cli2-action@v13.0.0
 
+      - name: cleanup self hosted runner
+        if: always()
+        uses: TooMuch4U/actions-clean@v2.1
+
   dev-build-deploy-test:
     needs: run-linters
     env:
@@ -35,6 +39,9 @@ jobs:
     timeout-minutes: 15
     runs-on: avd-ci
     steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
       - name: setup Python
         uses: actions/setup-python@v4
         with:
