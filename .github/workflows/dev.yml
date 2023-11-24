@@ -26,16 +26,11 @@ jobs:
       - name: run markdownlint-cli2
         uses: DavidAnson/markdownlint-cli2-action@v13.0.0
 
-      - name: cleanup self hosted runner
-        if: always()
-        uses: TooMuch4U/actions-clean@v2.1
-
   dev-build-deploy-test:
     needs: run-linters
     env:
       ANTA_PASSWORD: ${{ secrets.ANTA_PASSWORD }}
       SUDO_PASS: ${{ secrets.SUDO_PASS }}
-      CEOS_IMAGE_NAME: ceos
       CEOS_VERSION: 4.30.2F
 
     timeout-minutes: 15
