@@ -67,7 +67,7 @@ def install_ansible_collections(ctx):
     """
     print("Installing Project Ansible Collection Requirements")
     ctx.run(
-        f"ansible-galaxy collection install -r {REQUIREMENTS_FILE_ANSIBLE}--force-with-deps"
+        f"ansible-galaxy collection install -r {REQUIREMENTS_FILE_ANSIBLE} --force-with-deps"
     )
 
     print("Installing Project Arista AVD Collection Python Requirements")

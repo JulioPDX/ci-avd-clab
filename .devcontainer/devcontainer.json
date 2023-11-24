@@ -12,8 +12,8 @@
     "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
 
-  // More info: https://aka.ms/dev-containers-non-root.
-  // "remoteUser": "vscode"
+  "remoteUser": "vscode",
+  "updateRemoteUserUID": true,
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   // "forwardPorts": [],
@@ -32,6 +32,7 @@
         "Tyriar.sort-lines",
         "aaron-bond.better-comments",
         "aristapublisher.eos",
+        "charliermarsh.ruff",
         "codezombiech.gitignore",
         "esbenp.prettier-vscode",
         "github.vscode-github-actions",
@@ -43,6 +44,31 @@
         "searKing.preview-vscode",
         "shardulm94.trailing-spaces"
       ]
+    },
+    "settings": {
+      "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "venvFolders": ["venv", ".venv"],
+        "editor.formatOnSave": true,
+        "files.trimTrailingWhitespace": true
+      },
+      "[yaml]": {
+        "editor.formatOnSave": true,
+        "files.trimTrailingWhitespace": true
+      },
+      "[plaintext]": {
+        "editor.formatOnSave": false,
+        "files.trimTrailingWhitespace": false
+      },
+      "editor.rulers": [80, 100],
+      "editor.bracketPairColorization.enabled": true,
+      "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+      },
+      "editor.trimAutoWhitespace": false,
+      "extensions.autoCheckUpdates": true,
+      "extensions.ignoreRecommendations": true,
+      "files.insertFinalNewline": true
     }
   }
 }
