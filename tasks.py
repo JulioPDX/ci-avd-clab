@@ -2,6 +2,7 @@
 
 from invoke import task
 import subprocess
+import os
 
 
 ANSIBLE_LOG_FILE = "ansible.log"
@@ -100,6 +101,17 @@ def install_clab(ctx):
 
 
 @task()
+def clab_download_and_deploy(ctx, token=None):
+    """
+    Download cEOS and create ContainerLab Topology.
+    """
+
+    download_eos(ctx, token)
+
+    clab_deploy(ctx)
+
+
+@task()
 def clab_deploy(ctx):
     """
     Create ContainerLab Topology.
@@ -118,12 +130,26 @@ def clab_destroy(ctx):
 
 
 @task()
-def download_eos(ctx):
+def download_eos(ctx, token=None):
     """
     Download EOS.
+    invoke download_eos --token=<insert token here>
     """
-    print("Downloading EOS image")
-    ctx.run(f"ardl get eos --version {CEOS_VERSION} --image-type cEOS --import-docker")
+    if token:
+        print("Downloading EOS image")
+        ctx.run(
+            f"ardl --token='{token}' get eos --version {CEOS_VERSION} --image-type cEOS --import-docker"
+        )
+    elif "ARISTA_TOKEN" in os.environ:
+        print("Downloading EOS image")
+        ctx.run(
+            f"ardl get eos --version {CEOS_VERSION} --image-type cEOS --import-docker"
+        )
+    else:
+        print(
+            "Error: `--token=<insert token here>` argument or Environment VAR `ARISTA_TOKEN=<insert token here>` is required"
+        )
+        exit()
 
 
 @task()
