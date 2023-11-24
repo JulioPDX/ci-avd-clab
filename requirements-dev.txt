@@ -1,4 +1,4 @@
 ansible-lint
-#invoke
+invoke
 pre-commit
 yamllint
