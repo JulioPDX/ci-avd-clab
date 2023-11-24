@@ -8,8 +8,8 @@ ANSIBLE_LOG_FILE = "ansible.log"
 CEOS_VERSION = "4.30.2F"
 CLAB_FILE = "lab.yml"
 REQUIREMENTS_FILE_ANSIBLE = "requirements.yml"
-REQUIREMENTS_FILE_PYTHON = "requirments.txt"
-REQUIREMENTS_FILE_PYTHON_DEV = "requirments-dev.txt"
+REQUIREMENTS_FILE_PYTHON = "requirements.txt"
+REQUIREMENTS_FILE_PYTHON_DEV = "requirements-dev.txt"
 
 
 @task()
