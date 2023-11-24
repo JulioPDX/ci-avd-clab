@@ -53,7 +53,7 @@ jobs:
         run: pip install invoke && invoke setup-base
 
       - name: create topology with containerlab
-        run: echo $SUDO_PASS | sudo -S clab deploy -t lab.yml --reconfigure
+        run: echo $SUDO_PASS | sudo -S containerlab deploy -t lab.yml --reconfigure
 
       - name: build with AVD
         run: ansible-playbook playbooks/build.yml
@@ -87,7 +87,7 @@ jobs:
 
       - name: destroy lab
         if: always()
-        run: echo $SUDO_PASS | sudo -S clab destroy -t lab.yml -c
+        run: echo $SUDO_PASS | sudo -S containerlab destroy -t lab.yml -c
 
       - name: cleanup self hosted runner
         if: always()

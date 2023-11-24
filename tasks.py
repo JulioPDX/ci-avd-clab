@@ -117,7 +117,7 @@ def clab_deploy(ctx):
     Create ContainerLab Topology.
     """
     print("Deploying ContainerLab Topology")
-    ctx.run(f"sudo -S clab deploy -t {CLAB_FILE} --reconfigure")
+    ctx.run(f"sudo -S containerlab deploy -t {CLAB_FILE} --reconfigure")
 
 
 @task()
@@ -126,7 +126,7 @@ def clab_destroy(ctx):
     Destroy ContainerLab Topology.
     """
     print("Destroying ContainerLab Topology")
-    ctx.run(f"sudo -S clab destroy -t {CLAB_FILE}")
+    ctx.run(f"sudo -S containerlab destroy -t {CLAB_FILE}")
 
 
 @task()
