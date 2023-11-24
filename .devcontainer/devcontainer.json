@@ -60,6 +60,7 @@
         "editor.formatOnSave": false,
         "files.trimTrailingWhitespace": false
       },
+      "ansible.python.interpreterPath": "/usr/local/bin/python3",
       "editor.rulers": [80, 100],
       "editor.bracketPairColorization.enabled": true,
       "editor.codeActionsOnSave": {
