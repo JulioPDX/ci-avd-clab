@@ -68,7 +68,7 @@ jobs:
           anta \
               --username admin \
               --password $ANTA_PASSWORD \
-              -i anta/anta-inv.yml \
+              --inventory anta/anta-inv.yml \
               --log-file artifacts/anta.log \
               nrfu --catalog anta/anta-test.yml text
 
