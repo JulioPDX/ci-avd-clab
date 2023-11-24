@@ -162,16 +162,25 @@ cython_debug/
 #.idea/
 
 # Artifacts
+artifacts/config_backup/*
+!artifacts/config_backup/.gitkeep
 artifacts/documentation/*
 !artifacts/documentation/.gitkeep
 artifacts/intended/configs/*
 !artifacts/intended/configs/.gitkeep
 artifacts/intended/structured_configs/*
 !artifacts/intended/structured_configs/.gitkeep
+artifacts/intended/test_catalogs/*
+!artifacts/intended/test_catalogs/.gitkeep
 artifacts/reports/*
 !artifacts/reports/.gitkeep
-artifacts/atna_reports/*
-!artifacts/atna_reports/.gitkeep
+artifacts/reports/anta_reports/*
+!artifacts/reports/anta_reports/.gitkeep
 
 # VS Code
 .vscode
+
+# ContainerLab
+*.yaml.bak
+*.yml.bak
+clab-ci-avd/*

@@ -4,12 +4,6 @@
   connection: local
   gather_facts: false
 
-  vars:
-    fabric_dir_name: "{{ fabric_name }}"
-    execute_tasks: false
-    documentation_dir_name: "artifacts/documentation"
-    output_dir_name: "artifacts/intended"
-
   tasks:
     - name: Generate intended variables
       ansible.builtin.import_role:
