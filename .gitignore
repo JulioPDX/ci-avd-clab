@@ -184,3 +184,5 @@ artifacts/reports/anta_reports/*
 *.yaml.bak
 *.yml.bak
 clab-ci-avd/*
+*.tar.xz
+*.tar.xz.sha512sum
