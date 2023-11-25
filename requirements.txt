@@ -1,3 +1,4 @@
 ansible-core<2.16.0
 ansible-pylibssh
 anta
+pre-commit

@@ -9,10 +9,10 @@
       ansible.builtin.import_role:
         name: arista.avd.eos_validate_state
 
-    # - name: Validate EOS state with ANTA
-    #   ansible.builtin.import_role:
-    #     name: arista.avd.eos_validate_state
-    #   delegate_to: localhost
-    #   vars:
-    #     use_anta: true
-    #     save_catalog: true
+  # - name: Validate EOS state with ANTA
+  #   ansible.builtin.import_role:
+  #     name: arista.avd.eos_validate_state
+  #   delegate_to: localhost
+  #   vars:
+  #     use_anta: true
+  #     save_catalog: true

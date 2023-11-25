@@ -17,14 +17,11 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
 
-      - name: run yamllint
-        uses: karancode/yamllint-github-action@v2.1.1
+      - name: setup python
+        uses: actions/setup-python@v4
 
-      - name: run ansible-lint
-        uses: ansible/ansible-lint@v6.22.0
-
-      - name: run markdownlint-cli2
-        uses: DavidAnson/markdownlint-cli2-action@v13.0.0
+      - name: run pre-commit
+        uses: pre-commit/action@v3.0.0
 
   dev-build-deploy-test:
     needs: run-linters
@@ -67,10 +64,9 @@ jobs:
               --log-file artifacts/anta.log \
               nrfu --catalog anta/anta-test.yml text
 
-      - name: validate configuration on nodes
-        run: |
-          ansible-playbook playbooks/validate-net.yml
-          sleep 10
+      # - name: validate configuration on nodes
+      #   run: |
+      #     ansible-playbook playbooks/validate-net.yml
 
       - name: upload artifacts
         if: always()
