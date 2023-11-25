@@ -43,6 +43,16 @@ all:
     ansible_httpapi_use_ssl: true
     ansible_httpapi_validate_certs: false
     ansible_python_interpreter: $(which python3)
-    # avd_data_conversion_mode: error
-    # avd_data_validation_mode: error
+    # AVD paths
+    execute_tasks: false
+    root_dir: "{{ playbook_dir | replace('/playbooks', '') }}"
+    documentation_dir_name: "artifacts/documentation"
+    output_dir_name: "artifacts/intended"
+    post_running_config_backup_dir_name: "artifacts/config_backup"
+    eos_validate_state_name: "artifacts/reports"
+    test_catalogs_dir_name: "test_catalogs"
+    # AVD configurations
+    fabric_dir_name: "{{ fabric_name }}"
+    avd_data_conversion_mode: error
+    avd_data_validation_mode: error
     avd_ignore_requirements: true

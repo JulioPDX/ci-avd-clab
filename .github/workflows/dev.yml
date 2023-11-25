@@ -12,7 +12,7 @@ on:
 jobs:
   run-linters:
     timeout-minutes: 15
-    runs-on: avd-ci
+    runs-on: ubuntu-latest
     steps:
       - name: checkout
         uses: actions/checkout@v4
@@ -31,20 +31,24 @@ jobs:
     env:
       ANTA_PASSWORD: ${{ secrets.ANTA_PASSWORD }}
       SUDO_PASS: ${{ secrets.SUDO_PASS }}
+      CEOS_VERSION: 4.30.2F
 
     timeout-minutes: 15
     runs-on: avd-ci
     steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
       - name: setup Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.9"
 
       - name: install requirements
-        run: ./setup.sh
+        run: pip install invoke && invoke setup-base
 
       - name: create topology with containerlab
-        run: echo $SUDO_PASS | sudo -S clab deploy -t lab.yml --reconfigure
+        run: echo $SUDO_PASS | sudo -S containerlab deploy -t lab.yml --reconfigure
 
       - name: build with AVD
         run: ansible-playbook playbooks/build.yml
@@ -59,7 +63,7 @@ jobs:
           anta \
               --username admin \
               --password $ANTA_PASSWORD \
-              -i anta/anta-inv.yml \
+              --inventory anta/anta-inv.yml \
               --log-file artifacts/anta.log \
               nrfu --catalog anta/anta-test.yml text
 
@@ -78,7 +82,7 @@ jobs:
 
       - name: destroy lab
         if: always()
-        run: echo $SUDO_PASS | sudo -S clab destroy -t lab.yml -c
+        run: echo $SUDO_PASS | sudo -S containerlab destroy -t lab.yml -c
 
       - name: cleanup self hosted runner
         if: always()
