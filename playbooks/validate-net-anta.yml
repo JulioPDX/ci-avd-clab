@@ -1,13 +1,13 @@
 ---
 - name: Validate deployed config
   hosts: ATD_FABRIC
-  connection: local
+  connection: httpapi
   gather_facts: false
 
   vars:
-    use_anta: false
+    use_anta: true
 
   tasks:
-    - name: Validate EOS state
+    - name: Validate EOS state with ANTA
       ansible.builtin.import_role:
         name: arista.avd.eos_validate_state
