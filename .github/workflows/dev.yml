@@ -55,7 +55,7 @@ jobs:
           ansible-playbook playbooks/deploy-net.yml
           sleep 10
 
-      - name: run ANTA tests
+      - name: run ANTA cli tests
         run: |
           anta \
               --username admin \
@@ -64,9 +64,11 @@ jobs:
               --log-file artifacts/anta.log \
               nrfu --catalog anta/anta-test.yml text
 
-      # - name: validate configuration on nodes
-      #   run: |
-      #     ansible-playbook playbooks/validate-net.yml
+      - name: validate configuration on nodes
+        run: ansible-playbook playbooks/validate-net.yml
+
+      - name: validate configuration on nodes w/anta
+        run: ansible-playbook playbooks/validate-net-anta.yml
 
       - name: upload artifacts
         if: always()

@@ -1,4 +1,5 @@
 ansible-lint
+eos-downloader
 invoke
 pre-commit
 yamllint

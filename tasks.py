@@ -144,7 +144,7 @@ def download_eos(ctx, token=None):
     elif "ARISTA_TOKEN" in os.environ:
         print("Downloading EOS image")
         ctx.run(
-            f"ardl get eos --version {CEOS_VERSION} --image-type cEOS --import-docker  --docker-name ceos"
+            f"ardl get eos --version {CEOS_VERSION} --image-type cEOS --import-docker --docker-name ceos"
         )
     else:
         print(
