@@ -3,3 +3,4 @@ eos-downloader
 invoke
 pre-commit
 yamllint
+-r requirements.txt

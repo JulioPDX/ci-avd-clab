@@ -70,14 +70,6 @@ jobs:
       - name: validate configuration on nodes w/anta
         run: ansible-playbook playbooks/validate-net-anta.yml
 
-      - name: upload artifacts
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: avd-artifacts
-          path: artifacts/**
-          retention-days: 90
-
       - name: destroy lab
         if: always()
         run: echo $SUDO_PASS | sudo -S containerlab destroy -t lab.yml -c

@@ -9,7 +9,6 @@ ANSIBLE_LOG_FILE = "ansible.log"
 CEOS_VERSION = "4.30.2F"
 CLAB_FILE = "lab.yml"
 REQUIREMENTS_FILE_ANSIBLE = "requirements.yml"
-REQUIREMENTS_FILE_PYTHON = "requirements.txt"
 REQUIREMENTS_FILE_PYTHON_DEV = "requirements-dev.txt"
 
 
@@ -36,7 +35,6 @@ def setup_base(ctx):
 
     # Install Python project and development requirements
     install_python_reqs(ctx)
-    install_python_reqs_dev(ctx)
 
     # Install Ansible collection requirements
     install_ansible_collections(ctx)
@@ -49,16 +47,7 @@ def install_python_reqs(ctx):
     """
     print("Installing Project Python Requirements")
     ctx.run("pip install --upgrade pip")
-    ctx.run(f"pip install -r {REQUIREMENTS_FILE_PYTHON}")
-
-
-@task()
-def install_python_reqs_dev(ctx):
-    """
-    Install development Python requirements.
-    """
-    print("Installing Development Python Requirements")
-    ctx.run(f"grep -v 'invoke' {REQUIREMENTS_FILE_PYTHON_DEV} | xargs pip install")
+    ctx.run(f"pip install -r {REQUIREMENTS_FILE_PYTHON_DEV}")
 
 
 @task()
