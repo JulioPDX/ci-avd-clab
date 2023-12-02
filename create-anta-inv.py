@@ -31,7 +31,6 @@ inventory = {"anta_inventory": {"hosts": []}}
 
 for host in im.get_hosts("all"):
     host_vars = vm.get_vars(host=host)
-    print(host_vars["group_names"])
     inventory["anta_inventory"]["hosts"].append(
         {
             "host": str(host_vars["ansible_host"]),
