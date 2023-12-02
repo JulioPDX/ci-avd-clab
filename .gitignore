@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 
 random.md
+anta-auto.yml
 
 # C extensions
 *.so
