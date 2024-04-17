@@ -8,6 +8,7 @@
     - name: run python installs
       ansible.builtin.command: pip3 install -r ../avd-install.txt
       delegate_to: localhost
+      run_once: true
 
     - name: Generate intended variables
       ansible.builtin.import_role:
