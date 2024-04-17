@@ -5,6 +5,9 @@
   gather_facts: false
 
   tasks:
+    - name: run python installs
+      ansible.builtin.command: pip3 install -r ../avd-install.txt
+
     - name: Generate intended variables
       ansible.builtin.import_role:
         name: arista.avd.eos_designs
